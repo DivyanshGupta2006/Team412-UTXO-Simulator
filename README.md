@@ -13,7 +13,7 @@
 
 
 ## Repository Structure
-[cite_start]The project is organized as per the technical requirements:
+The project is organized as per the technical requirements:
 ```text
 src/
 ├── main.py              # Main program entry point & Menu interface
@@ -26,4 +26,5 @@ src/
 │   └── test_scenarios.py # Implementation of 10 mandatory test cases
 ├── README.md            # Project documentation
 └── sample_output.txt    # Screenshot/text log of a demo run
+
 
