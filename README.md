@@ -4,13 +4,14 @@
 **Instructor:** Prof. Subhra Mazumdar  
 
 ## Team Information
-**Team Name:** 412  
+**Team Name:** 412
 
-**Members:**
-* **Divyansh Gupta** -  240041015
-* **Harsh Mahajan** -   240001034
-* **Darsh Chaudhary** - 240004014
-* **Akarsh J** -        240002007
+| Name | Roll Number |
+| :--------------: | :----------: |
+| Divyansh Gupta   | 240041015   |
+| Harsh Mahajan    | 240001034   |
+| Darsh Chaudhary  | 240004014   |
+| Akarsh J         | 240002007   |
 
 ---
 
@@ -63,3 +64,4 @@ src/
    ```bash
    python main.py
    ```
+
