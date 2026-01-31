@@ -6,12 +6,13 @@ class UTXOManager:
     def add_utxo(self, tx_id, index, amount, owner):
         """ Add a new UTXO to the set """
         if amount < 0:
-            raise ValueError("amount must be positive")
+            raise ValueError("amount must be positive!")
 
         if index < 0:
-            raise ValueError("index must be positive")
+            raise ValueError("index must be positive!")
 
-        # TODO: Add check for valid transaction id
+        if not (tx_id.startswith("tx_") and tx_id[-7:].isdigit()):
+            raise ValueError("tx_id must be valid!")
 
         # TODO: Add check for valid owner
 

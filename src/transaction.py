@@ -1,6 +1,13 @@
+import time
+import random
+
+
+def generate_tx_id():
+    return f"tx_{int(time.time())}_{random.randint(1000000, 9999999)}"
+
 class Transaction:
     def __init__(self):
-        self.transaction_details = {"tx_id": "",
+        self.transaction_details = {"tx_id": generate_tx_id(),
                                     "inputs": [],
                                     "outputs": []}
 
