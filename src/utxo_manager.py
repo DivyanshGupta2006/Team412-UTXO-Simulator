@@ -36,6 +36,17 @@ class UTXOManager:
             return True
         return False
 
+    def get_value_of_utxo(self, tx_id: str, index: int) -> float:
+        """ Calculate value of a UTXO """
+        if not self.exists(tx_id, index):
+            raise ValueError("UTXO does not exist or Already spent")
+        return self.utxo_set[(tx_id, index)][0]
+
+    def get_owner_of_utxo(self, tx_id: str, index: int) -> str:
+        if not self.exists(tx_id, index):
+            raise ValueError("UTXO does not exist")
+        return self.utxo_set[(tx_id, index)][1]
+
     def get_utxos_for_owner(self, owner: str) -> list:
         """ Get all UTXOs owned by an address """
         utxos = []
