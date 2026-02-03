@@ -1,5 +1,5 @@
 
-from src.utxo_manager import UTXOManager
+from utxo_manager import UTXOManager
 
 def is_transaction_valid(tx_details: dict, utxo_manager: UTXOManager, mempool=None) -> bool:
     """

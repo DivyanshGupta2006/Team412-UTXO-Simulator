@@ -1,5 +1,5 @@
 
-from src.validator import is_transaction_valid
+from validator import is_transaction_valid
 from typing import Tuple
 
 class Mempool:

@@ -4,9 +4,9 @@ import time
 import json
 import os
 from pathlib import Path
-from src.mempool import Mempool
-from src.utxo_manager import UTXOManager
-from src.util import display_msg, Colors
+from mempool import Mempool
+from utxo_manager import UTXOManager
+from util import display_msg, Colors
 
 class Block:
     def __init__(self, index: int, transactions: list, prev_hash: str, timestamp: float = None, hash: str = None):

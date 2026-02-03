@@ -18,7 +18,7 @@ blockchain = load_blockchain()
 def create_transaction_menu():
     print(f"\n {Colors.CYAN}--- Create New Transaction ---{Colors.RESET}")
     
-    sender = input(f" Enter Sender Name (e.g. Alice): ").strip()
+    sender = input(f" Enter Sender Name: ").strip()
     if not sender: return
 
     balance = utxo_manager.get_balance(sender)

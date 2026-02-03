@@ -16,7 +16,7 @@
 ---
 
 ## Project Overview
-This project is a functional simulator of Bitcoin's transaction system, developed to demonstrate the core mechanisms of the **UTXO (Unspent Transaction Output)** model. It focuses on the logic of transaction validation, memory pool management, and block mining within a local environment, without the complexity of a distributed network or real cryptography.
+This project is a functional simulator of Bitcoin's transaction system, developed to demonstrate the core mechanisms of the **UTXO (Unspent Transaction Output)** model. It focuses on the logic of transaction validation, memory pool management, and block mining within a local environment, without the complexity of a distributed network or real cryptography. The UTXO set and entire blockchain is also stored in a data directory, so that the blockchain is synced across multiple runs.
 
 The simulator implements the following core components:
 * **UTXO Manager:** A centralized "database" that tracks all spendable coins (UTXOs) and their owners.
@@ -36,6 +36,7 @@ src/
 ├── mempool.py           # Mempool management & conflict detection
 ├── validator.py         # Transaction validation logic
 ├── block.py             # Mining and fee distribution logic
+├── util.py              # Utility file to handle printing logic
 ├── tests/
 │   └── test_scenarios.py # Implementation of 10 mandatory test cases
 ├── README.md            # Project documentation
@@ -44,7 +45,7 @@ src/
 ## Installation & Usage
 
 ### Prerequisites
-* **Python:** Version 3.8+ recommended.
+* **Python:** Version 3.13+.
 * **Dependencies:** Standard Python libraries only (no external packages like `bitcoinlib` or `pycoin` are used).
 
 ### Running the Simulator
