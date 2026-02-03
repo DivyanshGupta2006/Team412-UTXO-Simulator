@@ -1,49 +1,53 @@
-from utxo_manager import UTXOManager
 
-def is_transaction_valid(self, utxo_manager: UTXOManager):
-    check1 = True
-    input_list = self.transaction_details["inputs"]
-    # this input_dict is a list of dictionaries
-    for input_dict in input_list:
-        utxo_key = (input_dict["prev_tx"], input_dict["index"])
-        if utxo_key not in utxo_manager.utxo_set:
-            check1 = False
+from src.utxo_manager import UTXOManager
 
-        amt, actual_owner = utxo_manager.utxo_set[utxo_key]
-        if actual_owner != input_dict["owner"]:
-            check1 = False
+def is_transaction_valid(tx_details: dict, utxo_manager: UTXOManager, mempool=None) -> bool:
+    """
+    Validate transaction against 5 strict rules:
+    1. Inputs exist
+    2. No double-spending in tx
+    3. Inputs >= Outputs
+    4. No negative outputs
+    5. No Mempool Conflict
+    """
+    inputs = tx_details["inputs"]
+    outputs = tx_details["outputs"]
+    
+    used_inputs_in_this_tx = set()
+    total_input = 0.0
+    
+    for inp in inputs:
+        utxo_key = (inp["prev_tx"], inp["index"])
+        
+        # Rule 1: Existence
+        if not utxo_manager.exists(inp["prev_tx"], inp["index"]):
+             return False
+             
+        # Verify Owner
+        owner_in_utxo = utxo_manager.get_owner_of_utxo(inp["prev_tx"], inp["index"])
+        if owner_in_utxo != inp["owner"]:
+            return False
 
-    check2 = True
-    seen_inputs = set()
-    for dicti in input_list:
-        utxo_key = (dicti["prev_tx"], dicti["index"])
+        # Rule 2: Double Spend in same Tx
+        if utxo_key in used_inputs_in_this_tx:
+            return False
+        used_inputs_in_this_tx.add(utxo_key)
 
-        if utxo_key in seen_inputs:
-            check2 = False
-        seen_inputs.add(utxo_key)
-    check3 = False
-    sum_of_inputs = 0
-    for input_dict in input_list:
-        summ, own = utxo_manager.utxo_set[(input_dict["prev_tx"], input_dict["index"])]
-        sum_of_inputs += summ
+        # Rule 5: Mempool Conflict
+        if mempool and utxo_key in mempool.spent_utxos:
+            return False
+            
+        total_input += utxo_manager.get_value_of_utxo(inp["prev_tx"], inp["index"])
 
-    sum_of_outputs = 0
-    output_list = self.transaction_details["outputs"]
-    # this output_list is also a list of dictionaries
-    for output_dict in output_list:
-        sum_of_outputs += output_dict["amount"]
+    # Rule 4: No negative outputs
+    total_output = 0.0
+    for out in outputs:
+        if out["amount"] < 0:
+            return False
+        total_output += out["amount"]
 
-    fee = sum_of_inputs - sum_of_outputs
-    if fee >= 0:
-        check3 = True
-
-    check4 = True
-    # no negative amounts in outputs
-    for output_dict in output_list:
-        if output_dict["amount"] < 0:
-            check4 = False
-
-    check5 = False
-    # TODO: Validation Check Number 5
-
-    return check1 and check2 and check3 and check4 and check5
+    # Rule 3: Input Sum >= Output Sum
+    if total_input < total_output:
+        return False
+        
+    return True
