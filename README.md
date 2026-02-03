@@ -42,6 +42,11 @@ src/
 ├── README.md            # Project documentation
 └── sample_output.txt    # Screenshot/text log of a demo run
 ```
+
+## Project Design
+Any new transaction created is first validated, then it is added to mempool if it is valid. Finally, A block can be mined using transactions in mempool + a coinbase transaction, and that block is appended to the blockchain. The UTXO set and Blockchain are stored in json format, which can be viewed via main menu. There are also 10 test cases that can be tested to check various functionalities of the blockchain.
+The Bonus feature of the project is the entire block history of the blockchain is stored and is visible through main menu.
+
 ## Installation & Usage
 
 ### Prerequisites
@@ -65,4 +70,5 @@ src/
    ```bash
    python main.py
    ```
+
 
