@@ -1,6 +1,3 @@
-from utxo_manager import UTXOManager
-from transaction import Transaction
-
 class Mempool:
     def __init__(self, max_size=50):
         self.max_size = max_size
